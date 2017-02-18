@@ -1,6 +1,9 @@
+#include "init.h"
 #include "print.h"
+#include "sudokator.h"
 
 int sudoku[9][9];
+Options options[9][9];
 
 void setNumber(int row, int column, int value) {
     sudoku[row][column] = value;
@@ -10,51 +13,94 @@ int getNumber(int row, int column) {
     return sudoku[row][column];
 }
 
+void checkRow(int row, int column) {
+    int currentValue;
+    int i;
+
+    for(i = 0; i < 9; i++) {
+        currentValue = sudoku[row][i];
+
+        if(currentValue != 0 && options[row][column].array[currentValue] == FALSE) {
+            options[row][column].array[currentValue] = TRUE;
+            options[row][column].optionsNo--;
+        }
+    }
+}
+
+void checkColumn(int row, int column) {
+    int currentValue;
+    int i;
+
+    for(i = 0; i < 9; i++) {
+        currentValue = sudoku[i][column];
+
+        if(currentValue != 0 && options[row][column].array[currentValue] == FALSE) {
+            options[row][column].array[currentValue] = TRUE;
+            options[row][column].optionsNo--;
+        }
+    }
+}
+
+int getGroupCoord(int cellCoord) {
+    if(cellCoord < 3) return 0;
+    if(cellCoord < 6) return 1;
+    if(cellCoord < 9) return 2;
+}
+
+void checkSquare(int row, int column) {
+    int i = getGroupCoord(row);
+    int j = getGroupCoord(column);
+    int currentI, currentJ;
+    int currentValue;
+
+    for(currentI = 3*i; currentI < 3*i + 3; currentI++) {
+        for(currentJ = 3*i; currentJ < 3*i + 3; currentJ++) {
+            currentValue = sudoku[currentI][currentJ];
+
+            if(currentValue != 0 && options[currentI][currentJ].array[currentValue] == FALSE) {
+                options[currentI][currentJ].array[currentValue] = TRUE;
+                options[currentI][currentJ].optionsNo--;
+            }
+        }
+    }
+}
+
+void initOptions() {
+    int row, column;
+
+    for(row = 0; row < 9; row++) {
+        for(column = 0; column < 9; column++) {
+            if(getNumber(row, column) == 0) {
+                options[row][column].optionsNo = 9;
+
+                checkRow(row, column);
+                checkColumn(row, column);
+                checkSquare(row, column);
+            }
+        }
+    }
+}
+
+void initSudoku() {
+    initValues();
+    initOptions();
+}
+
+void printOptions() {
+    int row, column;
+
+    for(row = 0; row < 9; row++) {
+        for(column = 0; column < 9; column++) {
+            if(sudoku[row][column] == 0) {
+                printf("[%d][%d] = %d\n", row, column, options[row][column].optionsNo);
+            }
+        }
+    }
+}
+
 int main() {
-    setNumber(0, 0, 1);
-    setNumber(0, 1, 9);
-    setNumber(1, 0, 2);
-    setNumber(1, 1, 3);
-    setNumber(2, 0, 8);
-
-    setNumber(1, 4, 9);
-    setNumber(1, 5, 5);
-    setNumber(2, 4, 2);
-
-    setNumber(0, 6, 6);
-    setNumber(0, 8, 4);
-    setNumber(1, 8, 1);
-    setNumber(2, 8, 5);
-
-    setNumber(3, 1, 5);
-    setNumber(3, 2, 2);
-    setNumber(5, 0, 9);
-    setNumber(5, 1, 8);
-
-    setNumber(3, 5, 8);
-    setNumber(4, 4, 7);
-    setNumber(5, 3, 3);
-
-    setNumber(3, 7, 7);
-    setNumber(3, 8, 9);
-    setNumber(5, 6, 2);
-    setNumber(5, 7, 1);
-
-    setNumber(6, 0, 5);
-    setNumber(7, 0, 7);
-    setNumber(8, 0, 6);
-    setNumber(8, 2, 8);
-
-    setNumber(6, 4, 4);
-    setNumber(7, 3, 5);
-    setNumber(7, 4, 6);
-
-    setNumber(6, 8, 7);
-    setNumber(7, 7, 3);
-    setNumber(7, 8, 8);
-    setNumber(8, 7, 4);
-    setNumber(8, 8, 2);
-
+    initSudoku();
     printSudoku();
+    printOptions();
     return 0;
 }
