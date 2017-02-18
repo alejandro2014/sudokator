@@ -27,18 +27,16 @@ int printSudokuRow(int row) {
 }
 
 void printSudoku() {
-    printf("+-----------------------------+\n");
-    printSudokuRow(0);
-    printSudokuRow(1);
-    printSudokuRow(2);
-    printf("+-----------------------------+\n");
-    printSudokuRow(3);
-    printSudokuRow(4);
-    printSudokuRow(5);
-    printf("+-----------------------------+\n");
-    printSudokuRow(6);
-    printSudokuRow(7);
-    printSudokuRow(8);
+    int row;
+
+    for(row = 0; row < 9; row++) {
+        if (row % 3 == 0) {
+            printf("+-----------------------------+\n");
+        }
+
+        printSudokuRow(row);
+    }
+    
     printf("+-----------------------------+\n");
 }
 
