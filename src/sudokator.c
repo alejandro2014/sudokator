@@ -10,37 +10,41 @@ int getNumber(int row, int column) {
     return sudoku[row][column];
 }
 
+int printSudokuRow(int row) {
+    printf("| ");
+    printf("%d", sudoku[row][0]);
+    printf("  ");
+    printf("%d", sudoku[row][1]);
+    printf("  ");
+    printf("%d", sudoku[row][2]);
+    printf(" | ");
+    printf("%d", sudoku[row][3]);
+    printf("  ");
+    printf("%d", sudoku[row][4]);
+    printf("  ");
+    printf("%d", sudoku[row][5]);
+    printf(" | ");
+    printf("%d", sudoku[row][6]);
+    printf("  ");
+    printf("%d", sudoku[row][7]);
+    printf("  ");
+    printf("%d", sudoku[row][8]);
+    printf(" |\n");
+}
+
 void printSudoku() {
     printf("+-----------------------------+\n");
-    printf("| ");
-    printf("%d", sudoku[0][0]);
-    printf("  ");
-    printf("%d", sudoku[0][1]);
-    printf("  ");
-    printf("%d", sudoku[0][2]);
-    printf(" | ");
-    printf("%d", sudoku[0][3]);
-    printf("  ");
-    printf("%d", sudoku[0][4]);
-    printf("  ");
-    printf("%d", sudoku[0][5]);
-    printf(" | ");
-    printf("%d", sudoku[0][6]);
-    printf("  ");
-    printf("%d", sudoku[0][7]);
-    printf("  ");
-    printf("%d", sudoku[0][8]);
-    printf(" |\n");
-    printf("| x  x  x |         |         |\n");
-    printf("| x  x  x |         |         |\n");
+    printSudokuRow(0);
+    printSudokuRow(1);
+    printSudokuRow(2);
     printf("+-----------------------------+\n");
-    printf("|         |         |         |\n");
-    printf("|         |         |         |\n");
-    printf("|         |         |         |\n");
+    printSudokuRow(3);
+    printSudokuRow(4);
+    printSudokuRow(5);
     printf("+-----------------------------+\n");
-    printf("|         |         |         |\n");
-    printf("|         |         |         |\n");
-    printf("|         |         |         |\n");
+    printSudokuRow(6);
+    printSudokuRow(7);
+    printSudokuRow(8);
     printf("+-----------------------------+\n");
 }
 
