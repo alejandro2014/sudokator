@@ -12,23 +12,17 @@ int getNumber(int row, int column) {
 
 int printSudokuRow(int row) {
     printf("| ");
-    printf("%d", sudoku[row][0]);
-    printf("  ");
-    printf("%d", sudoku[row][1]);
-    printf("  ");
-    printf("%d", sudoku[row][2]);
-    printf(" | ");
-    printf("%d", sudoku[row][3]);
-    printf("  ");
-    printf("%d", sudoku[row][4]);
-    printf("  ");
-    printf("%d", sudoku[row][5]);
-    printf(" | ");
-    printf("%d", sudoku[row][6]);
-    printf("  ");
-    printf("%d", sudoku[row][7]);
-    printf("  ");
-    printf("%d", sudoku[row][8]);
+
+    int column;
+    for(column = 0; column < 9; column++) {
+        printf("%d", sudoku[row][column]);
+
+        if(column < 8) {
+            char *separator = ((column == 2 || column == 5) ? " | " : "  ");
+            printf("%s", separator);
+        }
+    }
+
     printf(" |\n");
 }
 
