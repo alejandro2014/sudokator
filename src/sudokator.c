@@ -97,8 +97,24 @@ void findFirstUniqueOption(int *optionCoords) {
             if(sudoku[i][j] == 0 && options[i][j].optionsNo == 1) {
                 *(optionCoords + 0) = i;
                 *(optionCoords + 1) = j;
-                return;
+                break;
             }
+        }
+    }
+}
+
+void completeUniqueOption(int *optionCoords) {
+    int row = *(optionCoords + 0);
+    int column = *(optionCoords + 1);
+    Options option = options[row][column];
+    int currentValue;
+
+    for(currentValue = 0; currentValue < 9; currentValue++) {
+        if(option.array[currentValue] == FALSE) {
+            printf(">> [%d][%d] = %d\n", row, column, currentValue + 1);
+            sudoku[row][column] = currentValue + 1;
+            option.array[currentValue] == TRUE;
+            break;
         }
     }
 }
@@ -113,8 +129,8 @@ int main() {
     findFirstUniqueOption(&optionCoords[0]);
 
     printf("First unique option: [%d][%d]\n", optionCoords[0], optionCoords[1]);
-    /*completeFirstOption(&optionCoords);
-    checkRow(row, column);
+    completeUniqueOption(&optionCoords[0]);
+    /*checkRow(row, column);
     checkColumn(row, column);
     checkSquare(row, column);
 
