@@ -89,9 +89,36 @@ void printOptions() {
     }
 }
 
+void findFirstUniqueOption(int *optionCoords) {
+    int i, j;
+
+    for(i = 0; i < 9; i++) {
+        for(j = 0; j < 9; j++) {
+            if(sudoku[i][j] == 0 && options[i][j].optionsNo == 1) {
+                *(optionCoords + 0) = i;
+                *(optionCoords + 1) = j;
+                return;
+            }
+        }
+    }
+}
+
 int main() {
+    int optionCoords[2];
+
     initSudoku();
     printSudoku();
     printOptions();
+
+    findFirstUniqueOption(&optionCoords[0]);
+
+    printf("First unique option: [%d][%d]\n", optionCoords[0], optionCoords[1]);
+    /*completeFirstOption(&optionCoords);
+    checkRow(row, column);
+    checkColumn(row, column);
+    checkSquare(row, column);
+
+    printOptions();*/
+
     return 0;
 }
