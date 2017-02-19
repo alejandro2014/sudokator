@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include "print.h"
 
-extern int sudoku[9][9];
+extern SudokuCell sudoku[9][9];
 
 int printSudokuRow(int row) {
     printf("| ");
 
     int column;
     for(column = 0; column < 9; column++) {
-        printf("%d", sudoku[row][column]);
+        printf("%d", sudoku[row][column].value);
 
         if(column < 8) {
             char *separator = ((column == 2 || column == 5) ? " | " : "  ");

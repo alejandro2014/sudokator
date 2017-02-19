@@ -3,7 +3,7 @@
 
 void initValues() {
     setNumber(0, 0, 1);
-    setNumber(0, 1, 9);
+    /*setNumber(0, 1, 9);
     setNumber(1, 0, 2);
     setNumber(1, 1, 3);
     setNumber(2, 0, 8);
@@ -44,5 +44,5 @@ void initValues() {
     setNumber(7, 7, 3);
     setNumber(7, 8, 8);
     setNumber(8, 7, 4);
-    setNumber(8, 8, 2);
+    setNumber(8, 8, 2);*/
 }
