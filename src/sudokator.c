@@ -13,31 +13,10 @@ int getNumber(int row, int column) {
     return sudoku[row][column];
 }
 
-void checkRow(int row, int column) {
-    int currentValue;
-    int i;
-
-    for(i = 0; i < 9; i++) {
-        currentValue = sudoku[row][i];
-
-        if(currentValue != 0 && options[row][column].array[currentValue] == FALSE) {
-            options[row][column].array[currentValue] = TRUE;
-            options[row][column].optionsNo--;
-        }
-    }
-}
-
-void checkColumn(int row, int column) {
-    int currentValue;
-    int i;
-
-    for(i = 0; i < 9; i++) {
-        currentValue = sudoku[i][column];
-
-        if(currentValue != 0 && options[row][column].array[currentValue] == FALSE) {
-            options[row][column].array[currentValue] = TRUE;
-            options[row][column].optionsNo--;
-        }
+void markValue(int row, int column, int value) {
+    if(value != 0 && options[row][column].array[value] == FALSE) {
+        options[row][column].array[value] = TRUE;
+        options[row][column].optionsNo--;
     }
 }
 
@@ -47,20 +26,32 @@ int getGroupCoord(int cellCoord) {
     if(cellCoord < 9) return 2;
 }
 
+void checkRow(int row, int column) {
+    int i;
+
+    for(i = 0; i < 9; i++) {
+        markValue(row, column, sudoku[row][i]);
+    }
+}
+
+void checkColumn(int row, int column) {
+    int i;
+
+    for(i = 0; i < 9; i++) {
+        markValue(row, column, sudoku[i][column]);
+    }
+}
+
 void checkSquare(int row, int column) {
     int i = getGroupCoord(row);
     int j = getGroupCoord(column);
+    int iniCoordI = 3 * i;
+    int iniCoordJ = 3 * j;
     int currentI, currentJ;
-    int currentValue;
 
-    for(currentI = 3*i; currentI < 3*i + 3; currentI++) {
-        for(currentJ = 3*i; currentJ < 3*i + 3; currentJ++) {
-            currentValue = sudoku[currentI][currentJ];
-
-            if(currentValue != 0 && options[currentI][currentJ].array[currentValue] == FALSE) {
-                options[currentI][currentJ].array[currentValue] = TRUE;
-                options[currentI][currentJ].optionsNo--;
-            }
+    for(currentI = iniCoordI; currentI < iniCoordI + 3; currentI++) {
+        for(currentJ = iniCoordJ; currentJ < iniCoordJ + 3; currentJ++) {
+            markValue(row, column, sudoku[currentI][currentJ]);
         }
     }
 }
