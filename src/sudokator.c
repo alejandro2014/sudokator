@@ -35,11 +35,8 @@ void printSudoku() {
 }
 
 void discardValue(int row, int column, int value) {
-    //printf("value = %d cell.value = %d cell.options[value] = %d\n", value, cell.value, cell.options[value]);
-
-    if(sudoku[row][column].value == 0 && sudoku[row][column].options[value] == FALSE) {
-        printf("Discarding value %d in [%d][%d]\n", value, row, column);
-        sudoku[row][column].options[value] = TRUE;
+    if(sudoku[row][column].value == 0 && sudoku[row][column].options[value - 1] == FALSE) {
+        sudoku[row][column].options[value - 1] = TRUE;
         sudoku[row][column].optionsNo--;
     }
 }
@@ -91,12 +88,15 @@ int getNumber(int row, int column) {
 }
 
 void initOptions() {
-    int row, column;
+    int row, column, k;
 
     for(row = 0; row < 9; row++) {
         for(column = 0; column < 9; column++) {
-            if(getNumber(row, column) == 0) {
-                sudoku[row][column].optionsNo = 9;
+            sudoku[row][column].value = 0;
+            sudoku[row][column].optionsNo = 9;
+
+            for(k = 0; k < 9; k++) {
+                sudoku[row][column].options[k] = FALSE;
             }
         }
     }
