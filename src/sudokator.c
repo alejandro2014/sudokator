@@ -140,17 +140,11 @@ void findFirstUniqueOption(int *optionCoords) {
 void completeUniqueOption(int *optionCoords) {
     int row = *(optionCoords + 0);
     int column = *(optionCoords + 1);
-    SudokuCell cell = sudoku[row][column];
-    int currentValue;
+    int i;
 
-    for(currentValue = 0; currentValue < 9; currentValue++) {
-        /*printf(">> [%d][%d] = %d - ", row, column, currentValue);
-        printf("%d ", sudoku.options[currentValue]);
-        printf("\n");*/
-        if(cell.options[currentValue] == FALSE) {
-            printf(">> [%d][%d] = %d\n", row, column, currentValue + 1);
-            sudoku[row][column].value = currentValue + 1;
-            cell.options[currentValue] == TRUE;
+    for(i = 0; i < 9; i++) {
+        if(sudoku[row][column].options[i] == FALSE) {
+            setNumber(row, column, i + 1);
             return;
         }
     }
@@ -163,16 +157,12 @@ int main() {
     printSudoku();
     printOptions();
 
-    /*findFirstUniqueOption(&optionCoords[0]);
+    findFirstUniqueOption(&optionCoords[0]);
     printf("First unique option: [%d][%d]\n", optionCoords[0], optionCoords[1]);
     completeUniqueOption(&optionCoords[0]);
 
-    checkRow(optionCoords[0], optionCoords[1]);
-    checkColumn(optionCoords[0], optionCoords[1]);
-    checkSquare(optionCoords[0], optionCoords[1]);
-
     printSudoku();
-    printOptions();*/
+    printOptions();
 
     return 0;
 }
