@@ -35,8 +35,6 @@ void initOptions();
 
 void initSudoku();
 
-void printOptions();
-
 void findFirstUniqueOption(int *optionCoords);
 
 void completeUniqueOption(int *optionCoords);

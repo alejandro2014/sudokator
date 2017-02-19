@@ -3,6 +3,7 @@
 #include "sudokator.h"
 
 SudokuCell sudoku[9][9];
+int numbersLeft = 81;
 
 int printSudokuRow(int row) {
     printf("| ");
@@ -77,6 +78,7 @@ void checkSquare(int row, int column, int value) {
 
 void setNumber(int row, int column, int value) {
     sudoku[row][column].value = value;
+    numbersLeft--;
 
     checkRow(row, value);
     checkColumn(column, value);
@@ -105,22 +107,6 @@ void initOptions() {
 void initSudoku() {
     initOptions();
     initValues();
-}
-
-void printOptions() {
-    int row, column;
-
-    for(row = 0; row < 9; row++) {
-        for(column = 0; column < 9; column++) {
-            if(sudoku[row][column].value == 0) {
-                printf("%d ", sudoku[row][column].optionsNo);
-            } else {
-                printf("x ");
-            }
-        }
-
-        printf("\n");
-    }
 }
 
 void findFirstUniqueOption(int *optionCoords) {
@@ -155,14 +141,13 @@ int main() {
 
     initSudoku();
     printSudoku();
-    printOptions();
 
-    findFirstUniqueOption(&optionCoords[0]);
-    printf("First unique option: [%d][%d]\n", optionCoords[0], optionCoords[1]);
-    completeUniqueOption(&optionCoords[0]);
+    while(numbersLeft > 0) {
+        findFirstUniqueOption(&optionCoords[0]);
+        completeUniqueOption(&optionCoords[0]);
+    }
 
     printSudoku();
-    printOptions();
 
     return 0;
 }
